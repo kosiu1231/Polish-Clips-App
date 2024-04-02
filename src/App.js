@@ -17,7 +17,12 @@ function App() {
             <div className="App">
                 <Navbar />
                 <Box sx={{ pt: 10 }} />
-                <Container sx={{ height: "calc(100vh - 80px)" }}>
+                <Container
+                    maxWidth="xxl"
+                    sx={{
+                        height: "calc(100vh - 80px)",
+                    }}
+                >
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/clip/:id" element={<Clip />} />
