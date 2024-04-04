@@ -74,7 +74,7 @@ function Navbar() {
                             "&:hover": { borderColor: "white" },
                         }}
                         variant="outlined"
-                        as={RouterLink}
+                        component={RouterLink}
                         to="/logowanie"
                     >
                         Zaloguj się

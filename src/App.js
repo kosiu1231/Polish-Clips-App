@@ -11,38 +11,50 @@ import ResetPassword from "./pages/ResetPassword";
 import Create from "./pages/Create";
 import { Box, Container } from "@mui/material";
 import VerifyEmail from "./pages/VerifyEmail";
+import { AuthProvider } from "./Contexts/AuthProvider";
 
 function App() {
     return (
         <Router>
-            <div className="App">
-                <Navbar />
-                <Box sx={{ pt: 10 }} />
-                <Container
-                    maxWidth="xxl"
-                    sx={{
-                        height: "calc(100vh - 80px)",
-                    }}
-                >
-                    <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/klip/:id" element={<Clip />} />
-                        <Route
-                            path="/przypomnijhaslo"
-                            element={<ForgotPassword />}
-                        />
-                        <Route path="/gry" element={<Games />} />
-                        <Route path="/logowanie" element={<Login />} />
-                        <Route path="/rejestracja" element={<Register />} />
-                        <Route path="/weryfikacja" element={<VerifyEmail />} />
-                        <Route
-                            path="/zmianahasla"
-                            element={<ResetPassword />}
-                        />
-                        <Route path="/dodaj" element={<Create />} />
-                    </Routes>
-                </Container>
-            </div>
+            <AuthProvider>
+                <div className="App">
+                    <Navbar />
+                    <Box sx={{ pt: 10 }} />
+                    <Container
+                        maxWidth="xxl"
+                        sx={{
+                            height: "calc(100vh - 80px)",
+                        }}
+                    >
+                        <Routes>
+                            {/* Home */}
+                            <Route path="/" element={<Home />} />
+                            {/* Auth */}
+                            <Route path="/rejestracja" element={<Register />} />
+                            <Route
+                                path="/weryfikacja"
+                                element={<VerifyEmail />}
+                            />
+                            <Route path="/logowanie" element={<Login />} />
+                            <Route
+                                path="/zmianahasla"
+                                element={<ResetPassword />}
+                            />
+                            <Route
+                                path="/przypomnijhaslo"
+                                element={<ForgotPassword />}
+                            />
+                            {/* Protected */}
+                            <Route path="/dodaj" element={<Create />} />
+                            {/* Others */}
+                            <Route path="/klip/:id" element={<Clip />} />
+                            <Route path="/gry" element={<Games />} />
+                            {/* Error 404 */}
+                            {/* <Route path="/404" element={<NotFound />} /> */}
+                        </Routes>
+                    </Container>
+                </div>
+            </AuthProvider>
         </Router>
     );
 }
