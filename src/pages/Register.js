@@ -121,7 +121,7 @@ function Register() {
                 }}
             >
                 <Typography variant="h4" component="h3" sx={{ pt: 2 }}>
-                    Rejestracja
+                    Zarejestruj się
                 </Typography>
 
                 <Box
@@ -301,13 +301,12 @@ function Register() {
                         Zarejestruj się
                     </Button>
                     <Typography variant="subtitle1" fontSize={12}>
-                        Posiadasz konto?
+                        Posiadasz konto?{" "}
                         <Link
                             sx={{ color: "white" }}
                             component={RouterLink}
                             to="/logowanie"
                         >
-                            {" "}
                             Zaloguj się
                         </Link>
                     </Typography>

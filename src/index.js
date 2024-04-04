@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import { deepPurple } from "@mui/material/colors";
+import { AuthProvider } from "./Contexts/AuthProvider";
 
 const darkTheme = createTheme({
     palette: {
@@ -16,7 +17,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <ThemeProvider theme={darkTheme}>
         <CssBaseline enableColorScheme />
-        <App />
+        <AuthProvider>
+            <App />
+        </AuthProvider>
     </ThemeProvider>
 );
 

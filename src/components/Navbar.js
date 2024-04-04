@@ -21,7 +21,7 @@ function Navbar() {
                         component={RouterLink}
                         to="/"
                     >
-                        Polskie klipy
+                        Polish Clips
                     </Link>
                 </Typography>
                 <Stack
@@ -69,10 +69,13 @@ function Navbar() {
                     <Button
                         sx={{
                             color: "white",
+                            textDecoration: "none",
                             borderColor: "white",
                             "&:hover": { borderColor: "white" },
                         }}
                         variant="outlined"
+                        as={RouterLink}
+                        to="/logowanie"
                     >
                         Zaloguj się
                     </Button>

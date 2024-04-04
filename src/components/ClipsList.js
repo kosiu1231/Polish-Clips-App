@@ -14,7 +14,9 @@ import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import { Link as RouterLink } from "react-router-dom";
 
 function ClipsList() {
-    const [url] = useState("https://localhost:7064/api/clips");
+    const [url] = useState(
+        "https://localhost:7064/api/clips?SortBy=CreatedAt&IsDescending=true"
+    );
     const { data: clips, isLoading, error } = useGetFetch(url);
 
     return (
