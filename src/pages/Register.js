@@ -102,7 +102,7 @@ function Register() {
                 throw Error(data.message);
             }
 
-            navigate("/confirmpassword");
+            navigate("/verifyemail");
         } catch (err) {
             setErrMsg(err.message);
             errRef.current.focus();

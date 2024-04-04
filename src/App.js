@@ -10,7 +10,7 @@ import Register from "./pages/Register";
 import ResetPassword from "./pages/ResetPassword";
 import Create from "./pages/Create";
 import { Box, Container } from "@mui/material";
-import ConfirmPassword from "./pages/ConfirmPassword";
+import VerifyEmail from "./pages/VerifyEmail";
 
 function App() {
     return (
@@ -34,10 +34,7 @@ function App() {
                         <Route path="/games" element={<Games />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
-                        <Route
-                            path="/confirmpassword"
-                            element={<ConfirmPassword />}
-                        />
+                        <Route path="/verifyemail" element={<VerifyEmail />} />
                         <Route
                             path="/resetpassword"
                             element={<ResetPassword />}
