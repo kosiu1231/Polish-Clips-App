@@ -30,7 +30,7 @@ function ClipsList() {
                             <Link
                                 sx={{ textDecoration: "none", color: "white" }}
                                 component={RouterLink}
-                                to={`/clip/${clip.id}`}
+                                to={`/klip/${clip.id}`}
                             >
                                 <CardMedia
                                     position="relative"

@@ -21,7 +21,7 @@ function Navbar() {
                         component={RouterLink}
                         to="/"
                     >
-                        Polish Clips
+                        Polskie klipy
                     </Link>
                 </Typography>
                 <Stack
@@ -37,9 +37,9 @@ function Navbar() {
                             mr: 2,
                         }}
                         component={RouterLink}
-                        to="/games"
+                        to="/gry"
                     >
-                        Games
+                        Gry
                     </Link>
                     <Link
                         sx={{
@@ -61,9 +61,9 @@ function Navbar() {
                             mr: 2,
                         }}
                         component={RouterLink}
-                        to="/create"
+                        to="/dodaj"
                     >
-                        Add clip
+                        Dodaj klip
                     </Link>
                 ) : (
                     <Button
@@ -74,7 +74,7 @@ function Navbar() {
                         }}
                         variant="outlined"
                     >
-                        Sign in
+                        Zaloguj się
                     </Button>
                 )}
             </Toolbar>

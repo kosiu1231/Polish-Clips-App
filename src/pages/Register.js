@@ -102,7 +102,7 @@ function Register() {
                 throw Error(data.message);
             }
 
-            navigate("/verifyemail");
+            navigate("/weryfikacja");
         } catch (err) {
             setErrMsg(err.message);
             errRef.current.focus();
@@ -305,7 +305,7 @@ function Register() {
                         <Link
                             sx={{ color: "white" }}
                             component={RouterLink}
-                            to="/login"
+                            to="/logowanie"
                         >
                             {" "}
                             Zaloguj się

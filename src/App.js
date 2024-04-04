@@ -26,20 +26,17 @@ function App() {
                 >
                     <Routes>
                         <Route path="/" element={<Home />} />
-                        <Route path="/clip/:id" element={<Clip />} />
+                        <Route path="/klip/:id" element={<Clip />} />
                         <Route
-                            path="/forgotpassword"
+                            path="/przypomnijhaslo"
                             element={<ForgotPassword />}
                         />
-                        <Route path="/games" element={<Games />} />
-                        <Route path="/login" element={<Login />} />
-                        <Route path="/register" element={<Register />} />
-                        <Route path="/verifyemail" element={<VerifyEmail />} />
-                        <Route
-                            path="/resetpassword"
-                            element={<ResetPassword />}
-                        />
-                        <Route path="/create" element={<Create />} />
+                        <Route path="/gry" element={<Games />} />
+                        <Route path="/logowanie" element={<Login />} />
+                        <Route path="/rejestracja" element={<Register />} />
+                        <Route path="/weryfikacja" element={<VerifyEmail />} />
+                        <Route path="/resethasla" element={<ResetPassword />} />
+                        <Route path="/dodaj" element={<Create />} />
                     </Routes>
                 </Container>
             </div>

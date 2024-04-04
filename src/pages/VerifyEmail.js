@@ -59,7 +59,7 @@ function VerifyEmail() {
                 throw Error(data.message);
             }
 
-            navigate("/login");
+            navigate("/logowanie");
         } catch (err) {
             setErrMsg(err.message);
             errRef.current.focus();
