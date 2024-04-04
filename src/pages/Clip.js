@@ -18,7 +18,7 @@ function Clip() {
 
     return (
         <Box>
-            {isLoading && <div>Loading...</div>}
+            {isLoading && <div>Ładowanie...</div>}
             {error && <Typography>Brak danych</Typography>}
             {clip && !isLoading && !error && (
                 <Grid container spacing={2} sx={{ height: "90vh" }}>

@@ -19,7 +19,7 @@ function ClipsList() {
 
     return (
         <Grid container>
-            {isLoading && <div>Loading...</div>}
+            {isLoading && <div>Ładowanie...</div>}
             {error && <Typography>Brak danych</Typography>}
             {clips &&
                 !isLoading &&

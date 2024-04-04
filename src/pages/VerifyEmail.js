@@ -81,6 +81,10 @@ function VerifyEmail() {
                     Weryfikacja
                 </Typography>
 
+                <Typography variant="p" mt={0.5}>
+                    Sprawdź skrzynkę pocztową.
+                </Typography>
+
                 <Box
                     component="form"
                     onSubmit={handleSubmit}

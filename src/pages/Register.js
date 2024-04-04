@@ -200,7 +200,7 @@ function Register() {
                                 : "none"
                         }
                     >
-                        Wprowadź poprawny adres e-mail
+                        Wprowadź poprawny adres e-mail.
                     </Typography>
 
                     <TextField
