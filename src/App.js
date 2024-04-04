@@ -35,7 +35,10 @@ function App() {
                         <Route path="/logowanie" element={<Login />} />
                         <Route path="/rejestracja" element={<Register />} />
                         <Route path="/weryfikacja" element={<VerifyEmail />} />
-                        <Route path="/resethasla" element={<ResetPassword />} />
+                        <Route
+                            path="/zmianahasla"
+                            element={<ResetPassword />}
+                        />
                         <Route path="/dodaj" element={<Create />} />
                     </Routes>
                 </Container>

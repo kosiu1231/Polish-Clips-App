@@ -59,7 +59,7 @@ function ForgotPassword() {
                 throw Error(data.message);
             }
 
-            navigate("/resethasla");
+            navigate("/zmianahasla");
         } catch (err) {
             setErrMsg(err.message);
             errRef.current.focus();
