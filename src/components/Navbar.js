@@ -10,8 +10,6 @@ import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 function Navbar() {
-    const loggedIn = false;
-
     return (
         <AppBar sx={{ position: "fixed" }}>
             <Toolbar>
@@ -53,33 +51,30 @@ function Navbar() {
                         CosTuBedzie
                     </Link>
                 </Stack>
-                {loggedIn ? (
-                    <Link
-                        sx={{
-                            color: "white",
-                            textDecoration: "none",
-                            mr: 2,
-                        }}
-                        component={RouterLink}
-                        to="/dodaj"
-                    >
-                        Dodaj klip
-                    </Link>
-                ) : (
-                    <Button
-                        sx={{
-                            color: "white",
-                            textDecoration: "none",
-                            borderColor: "white",
-                            "&:hover": { borderColor: "white" },
-                        }}
-                        variant="outlined"
-                        component={RouterLink}
-                        to="/logowanie"
-                    >
-                        Zaloguj się
-                    </Button>
-                )}
+                <Link
+                    sx={{
+                        color: "white",
+                        textDecoration: "none",
+                        mr: 2,
+                    }}
+                    component={RouterLink}
+                    to="/dodaj"
+                >
+                    Dodaj klip
+                </Link>
+                <Button
+                    sx={{
+                        color: "white",
+                        textDecoration: "none",
+                        borderColor: "white",
+                        "&:hover": { borderColor: "white" },
+                    }}
+                    variant="outlined"
+                    component={RouterLink}
+                    to="/logowanie"
+                >
+                    Zaloguj się
+                </Button>
             </Toolbar>
         </AppBar>
     );

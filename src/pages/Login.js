@@ -7,15 +7,18 @@ import {
     TextField,
     Typography,
 } from "@mui/material";
-import React, { useContext, useEffect, useRef, useState } from "react";
-import { Link as RouterLink, useNavigate } from "react-router-dom";
-import AuthContext from "../Contexts/AuthProvider";
+import React, { useEffect, useRef, useState } from "react";
+import { Link as RouterLink, useNavigate, useLocation } from "react-router-dom";
+import useAuth from "../Hooks/useAuth";
 
 function Login() {
-    const { setAuth } = useContext(AuthContext);
+    const { setAuth } = useAuth();
     const emailRef = useRef();
     const errRef = useRef();
+
     const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
 
     const [email, setEmail] = useState("");
     const [pwd, setPwd] = useState("");
@@ -58,8 +61,8 @@ function Login() {
             const accessToken = data.data.token;
             const role = data.data.user.role;
             const username = data.data.user.username;
-            setAuth({ email, username, pwd, role, accessToken });
-            navigate("/");
+            await setAuth({ email, username, pwd, role, accessToken });
+            navigate(from, { replace: true });
         } catch (err) {
             setErrMsg(err.message);
             errRef.current.focus();

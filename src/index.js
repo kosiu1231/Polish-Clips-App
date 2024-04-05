@@ -4,6 +4,8 @@ import "./index.css";
 import App from "./App";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import { deepPurple } from "@mui/material/colors";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { AuthProvider } from "./Contexts/AuthProvider";
 
 const darkTheme = createTheme({
     palette: {
@@ -16,7 +18,13 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <ThemeProvider theme={darkTheme}>
         <CssBaseline enableColorScheme />
-        <App />
+        <Router>
+            <AuthProvider>
+                <Routes>
+                    <Route path="/*" element={<App />} />
+                </Routes>
+            </AuthProvider>
+        </Router>
     </ThemeProvider>
 );
 
