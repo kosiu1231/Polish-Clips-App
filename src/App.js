@@ -11,6 +11,7 @@ import VerifyEmail from "./pages/VerifyEmail";
 import Layout from "./components/Layout";
 import RequireAuth from "./components/RequireAuth";
 import Unauthorized from "./pages/Unauthorized";
+import NotFound from "./pages/NotFound";
 
 function App() {
     return (
@@ -39,7 +40,7 @@ function App() {
                 <Route path="/klip/:id" element={<Clip />} />
                 <Route path="/gry" element={<Games />} />
                 <Route path="/nieuprawniony" element={<Unauthorized />} />
-                {/* <Route path="*" element={<NotFound />} /> */}
+                <Route path="*" element={<NotFound />} />
             </Route>
         </Routes>
     );
