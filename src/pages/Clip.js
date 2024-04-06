@@ -41,7 +41,7 @@ function Clip() {
                         ></iframe>
                     </Grid>
                     <Grid item md={12} xl={4}>
-                        <Card sx={{ p: 1, mb: 2 }}>
+                        <Card sx={{ p: 1, mb: 1 }}>
                             <CardContent>
                                 <Box>
                                     <Typography noWrap variant="h6">
@@ -70,7 +70,12 @@ function Clip() {
                                 </Box>
                             </CardContent>
                         </Card>
-                        {clip && <CommentList comments={clip.data.comments} />}
+                        {clip && (
+                            <CommentList
+                                comments={clip.data.comments}
+                                commentId={id}
+                            />
+                        )}
                     </Grid>
                 </Grid>
             )}

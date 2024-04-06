@@ -6,17 +6,61 @@ import {
     TextField,
     Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import AuthContext from "../Contexts/AuthProvider";
+import { useNavigate, useLocation } from "react-router-dom";
+import useAuth from "../Hooks/useAuth";
 
-function CommentList({ comments }) {
+function CommentList({ comments, commentId }) {
     const [comment, setComment] = useState("");
+    const [commentList, setCommentList] = useState(comments);
+    const { isLogged } = useContext(AuthContext);
+    const { auth } = useAuth();
+    const [url] = useState(`https://localhost:7064/api/comment`);
+    const location = useLocation();
+    const navigate = useNavigate();
 
-    const handleComment = (e) => {
-        alert(comment);
+    const handleComment = async (e) => {
+        if (isLogged) {
+            const commentInfo = {
+                text: comment,
+                clipId: commentId,
+            };
+
+            setComment("");
+
+            try {
+                const res = await fetch(url, {
+                    method: "POST",
+                    headers: {
+                        accept: "text/plain",
+                        "Content-Type": "application/json",
+                        Authorization: `bearer ${auth.accessToken}`,
+                    },
+                    body: JSON.stringify(commentInfo),
+                });
+
+                const data = await res.json();
+
+                if (!res.ok) {
+                    throw Error(data.message);
+                }
+                const newComments = data.data.comments;
+                setCommentList(newComments);
+            } catch (err) {
+                console.log(err.message);
+                alert(err.message);
+            }
+        } else {
+            navigate("/logowanie", {
+                state: { from: location },
+                replace: true,
+            });
+        }
     };
 
     return (
-        <Box sx={{ maxHeight: "65vh", overflowY: "auto", pr: 1 }}>
+        <Box sx={{ maxHeight: "65vh", overflowY: "auto", pr: 1, pt: 1 }}>
             <TextField
                 id="add-comment-textfield"
                 label="Dodaj komentarz"
@@ -24,6 +68,7 @@ function CommentList({ comments }) {
                 maxRows={2}
                 minRows={2}
                 fullWidth
+                value={comment}
                 onChange={(e) => setComment(e.target.value)}
             />
             <Button
@@ -37,8 +82,8 @@ function CommentList({ comments }) {
             >
                 Dodaj komentarz
             </Button>
-            {comments &&
-                comments
+            {commentList &&
+                commentList
                     .sort(
                         (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
                     )
@@ -57,7 +102,6 @@ function CommentList({ comments }) {
                             >
                                 {comment.text}
                             </Typography>
-                            {console.log(comment)}
                         </Card>
                     ))}
         </Box>
