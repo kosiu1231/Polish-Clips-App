@@ -7,11 +7,13 @@ import {
     TextField,
     Typography,
 } from "@mui/material";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link as RouterLink, useNavigate, useLocation } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
+import AuthContext from "../Contexts/AuthProvider";
 
 function Login() {
+    const { setIsLogged } = useContext(AuthContext);
     const { setAuth } = useAuth();
     const emailRef = useRef();
     const errRef = useRef();
@@ -59,9 +61,21 @@ function Login() {
             }
 
             const accessToken = data.data.token;
+            const expiresAt =
+                JSON.parse(window.atob(accessToken.split(".")[1])).exp * 1000;
             const role = data.data.user.role;
             const username = data.data.user.username;
-            await setAuth({ email, username, pwd, role, accessToken });
+            await setAuth({ username, role, accessToken, expiresAt });
+
+            const userData = {
+                username: username,
+                role: role,
+                accessToken: accessToken,
+                expiresAt: expiresAt,
+            };
+
+            localStorage.setItem("user", JSON.stringify(userData));
+            setIsLogged(true);
             navigate(from, { replace: true });
         } catch (err) {
             setErrMsg(err.message);

@@ -6,10 +6,13 @@ import {
     Link,
     Stack,
 } from "@mui/material";
-import React from "react";
+import React, { useContext } from "react";
 import { Link as RouterLink } from "react-router-dom";
+import AuthContext from "../Contexts/AuthProvider";
 
 function Navbar() {
+    const { Logout, isLogged } = useContext(AuthContext);
+
     return (
         <AppBar sx={{ position: "fixed" }}>
             <Toolbar>
@@ -62,19 +65,36 @@ function Navbar() {
                 >
                     Dodaj klip
                 </Link>
-                <Button
-                    sx={{
-                        color: "white",
-                        textDecoration: "none",
-                        borderColor: "white",
-                        "&:hover": { borderColor: "white" },
-                    }}
-                    variant="outlined"
-                    component={RouterLink}
-                    to="/logowanie"
-                >
-                    Zaloguj się
-                </Button>
+                {isLogged ? (
+                    <Button
+                        sx={{
+                            color: "white",
+                            textDecoration: "none",
+                            borderColor: "white",
+                            "&:hover": { borderColor: "white" },
+                        }}
+                        variant="outlined"
+                        onClick={() => {
+                            Logout();
+                        }}
+                    >
+                        Wyloguj się
+                    </Button>
+                ) : (
+                    <Button
+                        sx={{
+                            color: "white",
+                            textDecoration: "none",
+                            borderColor: "white",
+                            "&:hover": { borderColor: "white" },
+                        }}
+                        variant="outlined"
+                        component={RouterLink}
+                        to="/logowanie"
+                    >
+                        Zaloguj się
+                    </Button>
+                )}
             </Toolbar>
         </AppBar>
     );
