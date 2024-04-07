@@ -11,7 +11,7 @@ import { Link as RouterLink } from "react-router-dom";
 import AuthContext from "../Contexts/AuthProvider";
 
 function Navbar() {
-    const { Logout, isLogged } = useContext(AuthContext);
+    const { Logout, isLogged, auth } = useContext(AuthContext);
 
     return (
         <AppBar sx={{ position: "fixed" }}>
@@ -53,18 +53,31 @@ function Navbar() {
                     >
                         CosTuBedzie
                     </Link>
+                    <Link
+                        sx={{
+                            color: "white",
+                            textDecoration: "none",
+                            mr: 2,
+                        }}
+                        component={RouterLink}
+                        to="/dodaj"
+                    >
+                        Dodaj klip
+                    </Link>
+                    {isLogged && auth.role === "Admin" && (
+                        <Link
+                            sx={{
+                                color: "white",
+                                textDecoration: "none",
+                                mr: 2,
+                            }}
+                            component={RouterLink}
+                            to="/admin"
+                        >
+                            Panel Administratora
+                        </Link>
+                    )}
                 </Stack>
-                <Link
-                    sx={{
-                        color: "white",
-                        textDecoration: "none",
-                        mr: 2,
-                    }}
-                    component={RouterLink}
-                    to="/dodaj"
-                >
-                    Dodaj klip
-                </Link>
                 {isLogged ? (
                     <Button
                         sx={{

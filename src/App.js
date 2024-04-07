@@ -12,6 +12,7 @@ import Layout from "./components/Layout";
 import RequireAuth from "./components/RequireAuth";
 import Unauthorized from "./pages/Unauthorized";
 import NotFound from "./pages/NotFound";
+import AdminPanel from "./pages/AdminPanel";
 
 function App() {
     return (
@@ -34,7 +35,7 @@ function App() {
                 </Route>
                 <Route element={<RequireAuth allowedRoles={["Admin"]} />}>
                     {/* logged admin */}
-                    {/* <Route path="/admin" element={<AdminPanel />} /> */}
+                    <Route path="/admin" element={<AdminPanel />} />
                 </Route>
                 {/* Other */}
                 <Route path="/klip/:id" element={<Clip />} />
