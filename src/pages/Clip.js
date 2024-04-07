@@ -53,7 +53,10 @@ function Clip() {
                                     />
                                     <Typography variant="subtitle1">
                                         Dodany przez:{" "}
-                                        {clip.data.user || "AutoMod"}
+                                        {clip.data.user &&
+                                        clip.data.user.username
+                                            ? clip.data.user.username
+                                            : "AutoMod"}
                                     </Typography>
                                     <Typography variant="subtitle1">
                                         Streamer: {clip.data.streamerName}

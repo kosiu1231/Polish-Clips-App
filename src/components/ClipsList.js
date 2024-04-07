@@ -53,7 +53,10 @@ function ClipsList() {
                                         orientation="horizontal"
                                     />
                                     <Typography variant="subtitle1">
-                                        Dodany przez: {clip.user || "AutoMod"}
+                                        Dodany przez:{" "}
+                                        {clip.user && clip.user.username
+                                            ? clip.user.username
+                                            : "AutoMod"}
                                     </Typography>
                                     <Typography variant="subtitle1">
                                         Streamer: {clip.streamerName}
