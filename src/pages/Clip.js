@@ -169,7 +169,7 @@ function Clip() {
                                                     }
                                                     sx={{ width: "100%" }}
                                                 >
-                                                    dislike
+                                                    USUŃ POLUBIENIE
                                                 </Button>
                                             ) : (
                                                 <Button
@@ -178,7 +178,7 @@ function Clip() {
                                                     }
                                                     sx={{ width: "100%" }}
                                                 >
-                                                    like
+                                                    POLUB
                                                 </Button>
                                             )
                                         ) : (
