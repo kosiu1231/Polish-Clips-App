@@ -122,7 +122,7 @@ function Clip() {
                         }}
                     >
                         <iframe
-                            src={`${clip.data.embedUrl}&parent=polish-clips.azurewebsites.net`}
+                            src={`${clip.data.embedUrl}&parent=polish-clips.vercel.app&parent=localhost`}
                             title="clip"
                             height="540px"
                             width="960px"
