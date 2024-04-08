@@ -13,7 +13,7 @@ import React from "react";
 import { useRef, useState, useEffect } from "react";
 import useAuth from "../Hooks/useAuth";
 
-const CLIPID_REGEX = /^[a-zA-Z]+-[a-zA-Z0-9_]+$/;
+const CLIPID_REGEX = /^[a-zA-Z]+-[a-zA-Z0-9_-]+$/;
 
 function Create() {
     const clipIdRef = useRef();
