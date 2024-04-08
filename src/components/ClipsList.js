@@ -15,7 +15,7 @@ import { Link as RouterLink } from "react-router-dom";
 
 function ClipsList() {
     const [url] = useState(
-        "https://localhost:7064/api/clips?SortBy=CreatedAt&IsDescending=true"
+        "https://polish-clips.azurewebsites.net/api/clips?SortBy=CreatedAt&IsDescending=true"
     );
     const { data: clips, isLoading, error } = useGetFetch(url);
 

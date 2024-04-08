@@ -16,7 +16,9 @@ function CommentList({ comments, commentId }) {
     const [commentList, setCommentList] = useState(comments);
     const { isLogged } = useContext(AuthContext);
     const { auth } = useAuth();
-    const [url] = useState(`https://localhost:7064/api/comment`);
+    const [url] = useState(
+        `https://polish-clips.azurewebsites.net/api/comment`
+    );
     const location = useLocation();
     const navigate = useNavigate();
 

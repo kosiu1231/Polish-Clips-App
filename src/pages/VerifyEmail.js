@@ -33,7 +33,9 @@ function VerifyEmail() {
 
     useEffect(() => {
         setValidToken(TOKEN_REGEX.test(token));
-        setUrl(`https://localhost:7064/auth/verify?token=` + token);
+        setUrl(
+            `https://polish-clips.azurewebsites.net/auth/verify?token=` + token
+        );
         setErrMsg("");
         // eslint-disable-next-line
     }, [token]);

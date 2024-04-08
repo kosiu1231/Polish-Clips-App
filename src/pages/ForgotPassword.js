@@ -33,7 +33,10 @@ function ForgotPassword() {
 
     useEffect(() => {
         setValidEmail(EMAIL_REGEX.test(email));
-        setUrl(`https://localhost:7064/auth/forgot-password?email=` + email);
+        setUrl(
+            `https://polish-clips.azurewebsites.net/auth/forgot-password?email=` +
+                email
+        );
         setErrMsg("");
         // eslint-disable-next-line
     }, [email]);

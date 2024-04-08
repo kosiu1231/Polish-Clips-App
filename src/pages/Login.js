@@ -26,7 +26,7 @@ function Login() {
     const [pwd, setPwd] = useState("");
     const [errMsg, setErrMsg] = useState("");
 
-    const [url] = useState(`https://localhost:7064/auth/login`);
+    const [url] = useState(`https://polish-clips.azurewebsites.net/auth/login`);
 
     useEffect(() => {
         emailRef.current.focus();

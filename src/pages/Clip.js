@@ -17,7 +17,9 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 function Clip() {
     const { id } = useParams();
-    const [clipsUrl] = useState(`https://localhost:7064/api/clip/${id}`);
+    const [clipsUrl] = useState(
+        `https://polish-clips.azurewebsites.net/api/clip/${id}`
+    );
     const { isLogged, auth, setAuth } = useContext(AuthContext);
     const [isLiked, setIsLiked] = useState(
         // eslint-disable-next-line
@@ -30,7 +32,7 @@ function Clip() {
     const handleLike = async (id) => {
         try {
             const res = await fetch(
-                `https://localhost:7064/api/clip/${id}/like`,
+                `https://polish-clips.azurewebsites.net/api/clip/${id}/like`,
                 {
                     method: "POST",
                     headers: {
@@ -70,7 +72,7 @@ function Clip() {
     const handleDislike = async (id) => {
         try {
             const res = await fetch(
-                `https://localhost:7064/api/clip/${id}/dislike`,
+                `https://polish-clips.azurewebsites.net/api/clip/${id}/dislike`,
                 {
                     method: "POST",
                     headers: {
@@ -120,7 +122,7 @@ function Clip() {
                         }}
                     >
                         <iframe
-                            src={`${clip.data.embedUrl}&parent=localhost`}
+                            src={`${clip.data.embedUrl}&parent=polish-clips.azurewebsites.net`}
                             title="clip"
                             height="540px"
                             width="960px"

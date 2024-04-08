@@ -35,7 +35,9 @@ function ResetPassword() {
 
     const [errMsg, setErrMsg] = useState("");
 
-    const [url] = useState(`https://localhost:7064/auth/reset-password`);
+    const [url] = useState(
+        `https://polish-clips.azurewebsites.net/auth/reset-password`
+    );
 
     useEffect(() => {
         tokenRef.current.focus();

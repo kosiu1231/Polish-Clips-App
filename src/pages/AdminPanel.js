@@ -20,13 +20,16 @@ function AdminPanel() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await fetch("https://localhost:7064/api/reports", {
-                    method: "GET",
-                    headers: {
-                        accept: "text/plain",
-                        Authorization: `bearer ${auth.accessToken}`,
-                    },
-                });
+                const res = await fetch(
+                    "https://polish-clips.azurewebsites.net/api/reports",
+                    {
+                        method: "GET",
+                        headers: {
+                            accept: "text/plain",
+                            Authorization: `bearer ${auth.accessToken}`,
+                        },
+                    }
+                );
 
                 const data = await res.json();
 
@@ -53,7 +56,7 @@ function AdminPanel() {
     const handleReview = async (id) => {
         try {
             const res = await fetch(
-                `https://localhost:7064/api/report/${id}/review`,
+                `https://polish-clips.azurewebsites.net/api/report/${id}/review`,
                 {
                     method: "POST",
                     headers: {

@@ -45,7 +45,9 @@ function Register() {
 
     const [errMsg, setErrMsg] = useState("");
 
-    const [url] = useState(`https://localhost:7064/auth/register`);
+    const [url] = useState(
+        `https://polish-clips.azurewebsites.net/auth/register`
+    );
 
     useEffect(() => {
         userRef.current.focus();

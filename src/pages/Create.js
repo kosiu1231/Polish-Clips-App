@@ -36,7 +36,7 @@ function Create() {
 
     useEffect(() => {
         setValidClipId(CLIPID_REGEX.test(clipId));
-        setUrl(`https://localhost:7064/api/clip`);
+        setUrl(`https://polish-clips.azurewebsites.net/api/clip`);
         setErrMsg("");
         // eslint-disable-next-line
     }, [clipId]);
