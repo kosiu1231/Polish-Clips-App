@@ -65,13 +65,15 @@ function Login() {
                 JSON.parse(window.atob(accessToken.split(".")[1])).exp * 1000;
             const role = data.data.user.role;
             const username = data.data.user.username;
-            await setAuth({ username, role, accessToken, expiresAt });
+            const likes = data.data.likes;
+            await setAuth({ username, role, accessToken, expiresAt, likes });
 
             const userData = {
                 username: username,
                 role: role,
                 accessToken: accessToken,
                 expiresAt: expiresAt,
+                likes: likes,
             };
 
             localStorage.setItem("user", JSON.stringify(userData));

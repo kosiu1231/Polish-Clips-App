@@ -5,16 +5,103 @@ import {
     Divider,
     Grid,
     Typography,
+    Button,
+    ButtonGroup,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import useGetFetch from "../Hooks/useGetFetch";
 import CommentList from "../components/CommentList";
+import AuthContext from "../Contexts/AuthProvider";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function Clip() {
     const { id } = useParams();
-    const [url] = useState(`https://localhost:7064/api/clip/${id}`);
-    const { data: clip, isLoading, error } = useGetFetch(url);
+    const [clipsUrl] = useState(`https://localhost:7064/api/clip/${id}`);
+    const { isLogged, auth, setAuth } = useContext(AuthContext);
+    const [isLiked, setIsLiked] = useState(
+        // eslint-disable-next-line
+        auth.likes ? auth.likes.some((like) => like.clipId == id) : false
+    );
+    const { data: clip, isLoading, error } = useGetFetch(clipsUrl);
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    const handleLike = async (id) => {
+        try {
+            const res = await fetch(
+                `https://localhost:7064/api/clip/${id}/like`,
+                {
+                    method: "POST",
+                    headers: {
+                        accept: "text/plain",
+                        Authorization: `bearer ${auth.accessToken}`,
+                    },
+                }
+            );
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                throw Error(data.message);
+            }
+
+            let updatedLikes = [];
+
+            if (auth.likes) {
+                updatedLikes = [...auth.likes, { clipId: id }];
+            } else {
+                updatedLikes = [{ clipId: id }];
+            }
+
+            const updatedAuth = { ...auth, likes: updatedLikes };
+
+            await localStorage.setItem("user", JSON.stringify(updatedAuth));
+
+            await setAuth(updatedAuth);
+
+            setIsLiked(true);
+        } catch (err) {
+            console.log(err.message);
+            alert(err.message);
+        }
+    };
+
+    const handleDislike = async (id) => {
+        try {
+            const res = await fetch(
+                `https://localhost:7064/api/clip/${id}/dislike`,
+                {
+                    method: "POST",
+                    headers: {
+                        accept: "text/plain",
+                        Authorization: `bearer ${auth.accessToken}`,
+                    },
+                }
+            );
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                throw Error(data.message);
+            }
+
+            const updatedLikes = auth.likes.filter(
+                (like) => like.clipId !== id
+            );
+
+            const updatedAuth = { ...auth, likes: updatedLikes };
+
+            localStorage.setItem("user", JSON.stringify(updatedAuth));
+
+            await await setAuth(updatedAuth);
+
+            setIsLiked(false);
+        } catch (err) {
+            console.log(err.message);
+            alert(err.message);
+        }
+    };
 
     return (
         <Box>
@@ -70,6 +157,52 @@ function Clip() {
                                             clip.data.createdAt
                                         ).toLocaleString()}
                                     </Typography>
+                                    <ButtonGroup
+                                        variant="contained"
+                                        sx={{ width: "100%" }}
+                                    >
+                                        {isLogged ? (
+                                            isLiked ? (
+                                                <Button
+                                                    onClick={() =>
+                                                        handleDislike(id)
+                                                    }
+                                                    sx={{ width: "100%" }}
+                                                >
+                                                    dislike
+                                                </Button>
+                                            ) : (
+                                                <Button
+                                                    onClick={() =>
+                                                        handleLike(id)
+                                                    }
+                                                    sx={{ width: "100%" }}
+                                                >
+                                                    like
+                                                </Button>
+                                            )
+                                        ) : (
+                                            <Button
+                                                onClick={() =>
+                                                    navigate("/logowanie", {
+                                                        state: {
+                                                            from: location,
+                                                        },
+                                                        replace: true,
+                                                    })
+                                                }
+                                                sx={{ width: "100%" }}
+                                            >
+                                                like
+                                            </Button>
+                                        )}
+                                        <Button sx={{ width: "100%" }}>
+                                            Two
+                                        </Button>
+                                        <Button sx={{ width: "100%" }}>
+                                            Three
+                                        </Button>
+                                    </ButtonGroup>
                                 </Box>
                             </CardContent>
                         </Card>

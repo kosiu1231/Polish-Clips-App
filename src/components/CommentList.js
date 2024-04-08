@@ -60,7 +60,7 @@ function CommentList({ comments, commentId }) {
     };
 
     return (
-        <Box sx={{ maxHeight: "65vh", overflowY: "auto", pr: 1, pt: 1 }}>
+        <Box sx={{ maxHeight: "63vh", overflowY: "auto", pr: 1, pt: 1 }}>
             <TextField
                 id="add-comment-textfield"
                 label="Dodaj komentarz"
