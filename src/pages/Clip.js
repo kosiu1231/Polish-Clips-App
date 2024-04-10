@@ -31,7 +31,8 @@ function Clip() {
         // eslint-disable-next-line
         auth.likes ? auth.likes.some((like) => like.clipId == id) : false
     );
-    const [open, setOpen] = useState(false);
+    const [openReportDialog, setOpenReportDialog] = useState(false);
+    const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
     const [report, setReport] = useState("");
     const { data: clip, isLoading, error } = useGetFetch(clipsUrl);
     const location = useLocation();
@@ -142,7 +143,33 @@ function Clip() {
             if (!res.ok) {
                 throw Error(data.message);
             }
-            setOpen(false);
+            setOpenReportDialog(false);
+        } catch (err) {
+            console.log(err.message);
+            alert(err.message);
+        }
+    };
+
+    const handleClipDelete = async () => {
+        try {
+            const res = await fetch(
+                `https://polish-clips.azurewebsites.net/api/clip?id=${id}`,
+                {
+                    method: "DELETE",
+                    headers: {
+                        accept: "text/plain",
+                        Authorization: `bearer ${auth.accessToken}`,
+                    },
+                }
+            );
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                throw Error(data.message);
+            }
+
+            navigate("/");
         } catch (err) {
             console.log(err.message);
             alert(err.message);
@@ -174,7 +201,7 @@ function Clip() {
                         ></iframe>
                     </Grid>
                     <Grid item md={12} xl={4}>
-                        <Card sx={{ p: 1, mb: 1 }}>
+                        <Card sx={{ p: 1, mb: 1, pb: 0 }}>
                             <CardContent>
                                 <Box>
                                     <Typography noWrap variant="h6">
@@ -205,7 +232,7 @@ function Clip() {
                                     </Typography>
                                     <ButtonGroup
                                         variant="contained"
-                                        sx={{ width: "100%" }}
+                                        sx={{ width: "100%", mt: 2 }}
                                     >
                                         {isLogged ? (
                                             isLiked ? (
@@ -244,8 +271,10 @@ function Clip() {
                                         )}
                                         {isLogged ? (
                                             <Button
-                                                onClick={() => setOpen(true)}
-                                                sx={{ width: "100%" }}
+                                                onClick={() =>
+                                                    setOpenReportDialog(true)
+                                                }
+                                                sx={{ width: "50%" }}
                                             >
                                                 Zgłoś
                                             </Button>
@@ -259,19 +288,27 @@ function Clip() {
                                                         replace: true,
                                                     })
                                                 }
-                                                sx={{ width: "100%" }}
+                                                sx={{ width: "50%" }}
                                             >
                                                 Zgłoś
                                             </Button>
                                         )}
-                                        _
-                                        <Button sx={{ width: "100%" }}>
-                                            Three
-                                        </Button>
+                                        {auth.role === "Admin" && (
+                                            <Button
+                                                onClick={() =>
+                                                    setOpenDeleteDialog(true)
+                                                }
+                                                sx={{ width: "100%" }}
+                                            >
+                                                Usuń klip
+                                            </Button>
+                                        )}
                                     </ButtonGroup>
                                     <Dialog
-                                        open={open}
-                                        onClose={() => setOpen(false)}
+                                        open={openReportDialog}
+                                        onClose={() =>
+                                            setOpenReportDialog(false)
+                                        }
                                         component={"form"}
                                         onSubmit={handleReportSubmit}
                                         fullWidth
@@ -304,7 +341,9 @@ function Clip() {
                                         </DialogContent>
                                         <DialogActions>
                                             <Button
-                                                onClick={() => setOpen(false)}
+                                                onClick={() =>
+                                                    setOpenReportDialog(false)
+                                                }
                                                 variant="contained"
                                             >
                                                 Anuluj
@@ -319,6 +358,42 @@ function Clip() {
                                                 variant="contained"
                                             >
                                                 Zgłoś
+                                            </Button>
+                                        </DialogActions>
+                                    </Dialog>
+                                    <Dialog
+                                        open={openDeleteDialog}
+                                        onClose={() =>
+                                            setOpenDeleteDialog(false)
+                                        }
+                                        fullWidth
+                                        maxWidth="sm"
+                                    >
+                                        <DialogTitle>
+                                            Usunięcie klipu
+                                        </DialogTitle>
+                                        <DialogContent>
+                                            <DialogContentText>
+                                                Czy na pewno chcesz usunąć ten
+                                                klip?
+                                            </DialogContentText>
+                                        </DialogContent>
+                                        <DialogActions>
+                                            <Button
+                                                onClick={() =>
+                                                    setOpenDeleteDialog(false)
+                                                }
+                                                variant="contained"
+                                            >
+                                                Anuluj
+                                            </Button>
+                                            <Button
+                                                onClick={() =>
+                                                    handleClipDelete()
+                                                }
+                                                variant="contained"
+                                            >
+                                                Usuń
                                             </Button>
                                         </DialogActions>
                                     </Dialog>
