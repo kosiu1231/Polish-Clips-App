@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import ClipsList from "../components/ClipsList";
 import { Undo } from "@mui/icons-material";
 import {
@@ -17,9 +18,12 @@ import {
 } from "@mui/material";
 
 function Home() {
+    const [searchParams] = useSearchParams();
+    const gameName = searchParams.get("gameName");
+
     const [query, setQuery] = useState({
         Name: "",
-        Game: "",
+        Game: gameName || "",
         Broadcaster: "",
         StartDate: "",
         EndDate: "",
@@ -27,9 +31,12 @@ function Home() {
         IsDescending: true,
     });
     const [url, setUrl] = useState(
-        "https://polish-clips.azurewebsites.net/api/clips?SortBy=CreatedAt&IsDescending=true"
+        gameName
+            ? `https://polish-clips.azurewebsites.net/api/clips?SortBy=CreatedAt&IsDescending=true&Game=${gameName}`
+            : "https://polish-clips.azurewebsites.net/api/clips?SortBy=CreatedAt&IsDescending=true"
     );
     const [resetButtonClicked, setResetButtonClicked] = useState(false);
+    const navigate = useNavigate();
 
     const updateQueryField = (field, value) => {
         setQuery((prevQuery) => ({
@@ -73,6 +80,7 @@ function Home() {
             SortBy: "CreatedAt",
             IsDescending: true,
         }));
+        navigate("/");
         setResetButtonClicked(true);
     };
 
