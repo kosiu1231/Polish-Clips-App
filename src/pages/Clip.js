@@ -8,6 +8,12 @@ import {
     Button,
     ButtonGroup,
 } from "@mui/material";
+import TextField from "@mui/material/TextField";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 import React, { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import useGetFetch from "../Hooks/useGetFetch";
@@ -25,6 +31,8 @@ function Clip() {
         // eslint-disable-next-line
         auth.likes ? auth.likes.some((like) => like.clipId == id) : false
     );
+    const [open, setOpen] = useState(false);
+    const [report, setReport] = useState("");
     const { data: clip, isLoading, error } = useGetFetch(clipsUrl);
     const location = useLocation();
     const navigate = useNavigate();
@@ -105,6 +113,42 @@ function Clip() {
         }
     };
 
+    const handleReportSubmit = async (e) => {
+        e.preventDefault();
+
+        const reportInfo = {
+            text: report,
+            clipId: id,
+        };
+
+        setReport("");
+
+        try {
+            const res = await fetch(
+                "https://polish-clips.azurewebsites.net/api/report",
+                {
+                    method: "POST",
+                    headers: {
+                        accept: "text/plain",
+                        "Content-Type": "application/json",
+                        Authorization: `bearer ${auth.accessToken}`,
+                    },
+                    body: JSON.stringify(reportInfo),
+                }
+            );
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                throw Error(data.message);
+            }
+            setOpen(false);
+        } catch (err) {
+            console.log(err.message);
+            alert(err.message);
+        }
+    };
+
     return (
         <Box>
             {isLoading && <div>Ładowanie...</div>}
@@ -171,7 +215,7 @@ function Clip() {
                                                     }
                                                     sx={{ width: "100%" }}
                                                 >
-                                                    USUŃ POLUBIENIE
+                                                    Usuń polubienie
                                                 </Button>
                                             ) : (
                                                 <Button
@@ -180,7 +224,7 @@ function Clip() {
                                                     }
                                                     sx={{ width: "100%" }}
                                                 >
-                                                    POLUB
+                                                    Polub
                                                 </Button>
                                             )
                                         ) : (
@@ -195,16 +239,89 @@ function Clip() {
                                                 }
                                                 sx={{ width: "100%" }}
                                             >
-                                                like
+                                                Polub
                                             </Button>
                                         )}
-                                        <Button sx={{ width: "100%" }}>
-                                            Two
-                                        </Button>
+                                        {isLogged ? (
+                                            <Button
+                                                onClick={() => setOpen(true)}
+                                                sx={{ width: "100%" }}
+                                            >
+                                                Zgłoś
+                                            </Button>
+                                        ) : (
+                                            <Button
+                                                onClick={() =>
+                                                    navigate("/logowanie", {
+                                                        state: {
+                                                            from: location,
+                                                        },
+                                                        replace: true,
+                                                    })
+                                                }
+                                                sx={{ width: "100%" }}
+                                            >
+                                                Zgłoś
+                                            </Button>
+                                        )}
+                                        _
                                         <Button sx={{ width: "100%" }}>
                                             Three
                                         </Button>
                                     </ButtonGroup>
+                                    <Dialog
+                                        open={open}
+                                        onClose={() => setOpen(false)}
+                                        component={"form"}
+                                        onSubmit={handleReportSubmit}
+                                        fullWidth
+                                        maxWidth="sm"
+                                    >
+                                        <DialogTitle>
+                                            Zgłoszenie klipu
+                                        </DialogTitle>
+                                        <DialogContent>
+                                            <DialogContentText>
+                                                Dlaczego chcesz zgłosić ten
+                                                klip?
+                                            </DialogContentText>
+                                            <TextField
+                                                margin="dense"
+                                                id="report"
+                                                label="Powód zgłoszenia"
+                                                type="text"
+                                                value={report}
+                                                fullWidth
+                                                autoComplete="off"
+                                                multiline
+                                                minRows={2}
+                                                maxRows={4}
+                                                onChange={(e) =>
+                                                    setReport(e.target.value)
+                                                }
+                                                inputProps={{ maxLength: 360 }}
+                                            ></TextField>
+                                        </DialogContent>
+                                        <DialogActions>
+                                            <Button
+                                                onClick={() => setOpen(false)}
+                                                variant="contained"
+                                            >
+                                                Anuluj
+                                            </Button>
+                                            <Button
+                                                disabled={
+                                                    !report.length > 0
+                                                        ? true
+                                                        : false
+                                                }
+                                                type="submit"
+                                                variant="contained"
+                                            >
+                                                Zgłoś
+                                            </Button>
+                                        </DialogActions>
+                                    </Dialog>
                                 </Box>
                             </CardContent>
                         </Card>
