@@ -49,17 +49,6 @@ function Navbar() {
                             mr: 2,
                         }}
                         component={RouterLink}
-                        to="/"
-                    >
-                        CosTuBedzie
-                    </Link>
-                    <Link
-                        sx={{
-                            color: "white",
-                            textDecoration: "none",
-                            mr: 2,
-                        }}
-                        component={RouterLink}
                         to="/dodaj"
                     >
                         Dodaj klip

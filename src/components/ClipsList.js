@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import useGetFetch from "../Hooks/useGetFetch";
 import {
     Card,
@@ -13,10 +12,7 @@ import InsertCommentOutlinedIcon from "@mui/icons-material/InsertCommentOutlined
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import { Link as RouterLink } from "react-router-dom";
 
-function ClipsList() {
-    const [url] = useState(
-        "https://polish-clips.azurewebsites.net/api/clips?SortBy=CreatedAt&IsDescending=true"
-    );
+function ClipsList({ url }) {
     const { data: clips, isLoading, error } = useGetFetch(url);
 
     return (
