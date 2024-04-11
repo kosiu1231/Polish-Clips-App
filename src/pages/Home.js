@@ -142,7 +142,7 @@ function Home() {
                             updateQueryField("Broadcaster", newBroadcaster);
                         }}
                     ></TextField>
-                    <Box fullWidth sx={{ my: 1 }} display={"flex"}>
+                    <Box sx={{ my: 1, width: 1 }} display={"flex"}>
                         <FormControl fullWidth>
                             <InputLabel id="sort-by-label">
                                 Sortuj po
