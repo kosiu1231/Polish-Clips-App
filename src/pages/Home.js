@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import ClipsList from "../components/ClipsList";
 import { Undo } from "@mui/icons-material";
@@ -37,6 +37,20 @@ function Home() {
     );
     const [resetButtonClicked, setResetButtonClicked] = useState(false);
     const navigate = useNavigate();
+    const [page, setPage] = useState(1);
+    const compRef = useRef();
+
+    const handlePages = (event, newPage) => {
+        setPage(newPage);
+        scrollToRef(compRef);
+    };
+
+    const scrollToRef = (ref) => {
+        ref.current.scroll({
+            top: 0,
+            behavior: "smooth",
+        });
+    };
 
     const updateQueryField = (field, value) => {
         setQuery((prevQuery) => ({
@@ -67,6 +81,8 @@ function Home() {
             IsDescending: IsDescending ? "true" : "false",
         });
 
+        setPage(1);
+        scrollToRef(compRef);
         setUrl(`${baseUrl}?${queryParams.toString()}`);
     };
 
@@ -80,6 +96,8 @@ function Home() {
             SortBy: "CreatedAt",
             IsDescending: true,
         }));
+        setPage(1);
+        scrollToRef(compRef);
         navigate("/");
         setResetButtonClicked(true);
     };
@@ -209,7 +227,12 @@ function Home() {
                 </Box>
             </Grid>
             <Grid item xs={12} xl={9}>
-                <ClipsList url={url} />
+                <ClipsList
+                    url={url}
+                    page={page}
+                    compRef={compRef}
+                    handlePages={handlePages}
+                />
             </Grid>
         </Grid>
     );
