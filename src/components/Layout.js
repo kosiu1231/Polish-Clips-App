@@ -9,8 +9,7 @@ const Layout = () => {
             <Container
                 maxWidth="xxl"
                 sx={{
-                    height: "calc(100vh - 80px)",
-                    mt: { xs: 19, md: 10 },
+                    mt: 1.5,
                 }}
             >
                 <Outlet />

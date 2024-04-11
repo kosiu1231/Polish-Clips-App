@@ -14,7 +14,7 @@ function Navbar() {
     const { Logout, isLogged, auth } = useContext(AuthContext);
 
     return (
-        <AppBar sx={{ position: "fixed" }}>
+        <AppBar sx={{ position: "static" }}>
             <Toolbar>
                 <Typography sx={{ color: "white" }} variant="h5" component="h1">
                     <Link
