@@ -61,11 +61,11 @@ function Login() {
             }
 
             const accessToken = data.data.token;
-            const expiresAt =
-                JSON.parse(window.atob(accessToken.split(".")[1])).exp * 1000;
-            const role = data.data.user.role;
-            const username = data.data.user.username;
             const likes = data.data.likes;
+            const payload = JSON.parse(window.atob(accessToken.split(".")[1]));
+            const expiresAt = payload.exp * 1000;
+            const role = payload.role;
+            const username = payload.unique_name;
             await setAuth({ username, role, accessToken, expiresAt, likes });
 
             const userData = {
