@@ -10,7 +10,7 @@ const Layout = () => {
                 maxWidth="xxl"
                 sx={{
                     height: "calc(100vh - 80px)",
-                    mt: 10,
+                    mt: { xs: 19, md: 10 },
                 }}
             >
                 <Outlet />

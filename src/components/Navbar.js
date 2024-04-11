@@ -27,8 +27,9 @@ function Navbar() {
                 </Typography>
                 <Stack
                     justifyContent="center"
-                    direction="row"
-                    sx={{ flexGrow: 1 }}
+                    alignItems="center"
+                    direction={{ xs: "column", md: "row" }}
+                    sx={{ flexGrow: 1, my: 1 }}
                     spacing={3}
                 >
                     <Link

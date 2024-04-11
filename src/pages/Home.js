@@ -94,7 +94,7 @@ function Home() {
 
     return (
         <Grid container spacing={2}>
-            <Grid item lg={12} xl={3}>
+            <Grid item xs={12} xl={3}>
                 <Typography sx={{ mb: 2 }} variant="h5">
                     Filtrowanie
                 </Typography>
@@ -208,7 +208,7 @@ function Home() {
                     </ButtonGroup>
                 </Box>
             </Grid>
-            <Grid item lg={12} xl={9}>
+            <Grid item xs={12} xl={9}>
                 <ClipsList url={url} />
             </Grid>
         </Grid>

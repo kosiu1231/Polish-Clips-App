@@ -20,6 +20,7 @@ import useGetFetch from "../Hooks/useGetFetch";
 import CommentList from "../components/CommentList";
 import AuthContext from "../Contexts/AuthProvider";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useMediaQuery } from "@mui/material";
 
 function Clip() {
     const { id } = useParams();
@@ -37,6 +38,7 @@ function Clip() {
     const { data: clip, isLoading, error } = useGetFetch(clipsUrl);
     const location = useLocation();
     const navigate = useNavigate();
+    const belowMD = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
     const handleLike = async (id) => {
         try {
@@ -184,7 +186,7 @@ function Clip() {
                 <Grid container spacing={2} sx={{ height: "90vh" }}>
                     <Grid
                         item
-                        md={12}
+                        xs={12}
                         xl={8}
                         sx={{
                             display: "flex",
@@ -192,15 +194,40 @@ function Clip() {
                             justifyContent: "center",
                         }}
                     >
-                        <iframe
-                            src={`${clip.data.embedUrl}&parent=polish-clips.vercel.app&parent=localhost`}
-                            title="clip"
-                            height="540px"
-                            width="960px"
-                            allowFullScreen
-                        ></iframe>
+                        {belowMD ? (
+                            <div
+                                style={{
+                                    position: "relative",
+                                    paddingBottom: "56.25%",
+                                    height: 0,
+                                    overflow: "hidden",
+                                    width: "100%",
+                                }}
+                            >
+                                <iframe
+                                    src={`${clip.data.embedUrl}&parent=polish-clips.vercel.app&parent=localhost`}
+                                    title="clip"
+                                    style={{
+                                        position: "absolute",
+                                        top: 0,
+                                        left: 0,
+                                        width: "100%",
+                                        height: "100%",
+                                    }}
+                                    allowFullScreen
+                                ></iframe>
+                            </div>
+                        ) : (
+                            <iframe
+                                src={`${clip.data.embedUrl}&parent=polish-clips.vercel.app&parent=localhost`}
+                                title="clip"
+                                height="540px"
+                                width="960px"
+                                allowFullScreen
+                            ></iframe>
+                        )}
                     </Grid>
-                    <Grid item md={12} xl={4}>
+                    <Grid item xs={12} xl={4}>
                         <Card sx={{ p: 1, mb: 1, pb: 0 }}>
                             <CardContent>
                                 <Box>
@@ -232,7 +259,7 @@ function Clip() {
                                     </Typography>
                                     <ButtonGroup
                                         variant="contained"
-                                        sx={{ width: "100%", mt: 2 }}
+                                        sx={{ width: "100%", mt: 1.5 }}
                                     >
                                         {isLogged ? (
                                             isLiked ? (
