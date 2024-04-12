@@ -44,7 +44,7 @@ function ClipsList({ url, page, compRef, handlePages }) {
                     !error &&
                     clips.data.map((clip) => (
                         <Grid item xs={12} sm={6} md={6} lg={4} key={clip.id}>
-                            <Card sx={{ m: 1, p: 1, pb: 0.5 }}>
+                            <Card sx={{ m: 1, p: 1, pb: 0 }}>
                                 <Link
                                     sx={{
                                         textDecoration: "none",
@@ -96,7 +96,7 @@ function ClipsList({ url, page, compRef, handlePages }) {
                                                 display: "flex",
                                                 alignItems: "center",
                                                 justifyContent: "space-evenly",
-                                                mb: 0.5,
+                                                pt: 1.5,
                                             }}
                                         >
                                             <Box
