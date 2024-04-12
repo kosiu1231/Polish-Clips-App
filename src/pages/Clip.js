@@ -259,7 +259,7 @@ function Clip() {
                                     </Typography>
                                     <ButtonGroup
                                         variant="contained"
-                                        sx={{ width: "100%", my: 1 }}
+                                        sx={{ width: "100%", mt: 2.5 }}
                                     >
                                         {isLogged ? (
                                             isLiked ? (
