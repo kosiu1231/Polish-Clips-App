@@ -113,7 +113,7 @@ function Home() {
     return (
         <Grid container spacing={2}>
             <Grid item xs={12} xl={3}>
-                <Typography sx={{ mb: 2 }} variant="h5">
+                <Typography sx={{ mb: 1 }} variant="h5">
                     Filtrowanie
                 </Typography>
 

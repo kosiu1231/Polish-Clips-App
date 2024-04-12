@@ -320,7 +320,7 @@ function Clip() {
                                                 Zgłoś
                                             </Button>
                                         )}
-                                        {auth.role === "Admin" && (
+                                        {auth.role === "Admin" && isLogged && (
                                             <Button
                                                 onClick={() =>
                                                     setOpenDeleteDialog(true)
