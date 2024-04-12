@@ -13,6 +13,9 @@ import {
 import InsertCommentOutlinedIcon from "@mui/icons-material/InsertCommentOutlined";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import { Link as RouterLink } from "react-router-dom";
+import { useContext } from "react";
+import AuthContext from "../Contexts/AuthProvider";
+import { ThumbUp } from "@mui/icons-material";
 
 function ClipsList({ url, page, compRef, handlePages }) {
     const {
@@ -20,6 +23,7 @@ function ClipsList({ url, page, compRef, handlePages }) {
         isLoading,
         error,
     } = useGetFetch(url + `&PageNumber=${page}`);
+    const { auth } = useContext(AuthContext);
 
     return (
         <Box
@@ -40,7 +44,7 @@ function ClipsList({ url, page, compRef, handlePages }) {
                     !error &&
                     clips.data.map((clip) => (
                         <Grid item xs={12} sm={6} md={6} lg={4} key={clip.id}>
-                            <Card sx={{ m: 1, p: 1 }}>
+                            <Card sx={{ m: 1, p: 1, pb: 0.5 }}>
                                 <Link
                                     sx={{
                                         textDecoration: "none",
@@ -85,15 +89,56 @@ function ClipsList({ url, page, compRef, handlePages }) {
                                                 clip.createdAt
                                             ).toLocaleString()}
                                         </Typography>
-                                        <Typography variant="subtitle1" mt={1}>
-                                            <InsertCommentOutlinedIcon
-                                                sx={{ fontSize: 20 }}
-                                            />{" "}
-                                            {clip.comments.length}
-                                            <ThumbUpOutlinedIcon
-                                                sx={{ fontSize: 20, ml: 3 }}
-                                            />{" "}
-                                            {clip.likeAmount}
+                                        <Divider sx={{ my: 1 }}></Divider>
+                                        <Typography
+                                            variant="subtitle1"
+                                            sx={{
+                                                display: "flex",
+                                                alignItems: "center",
+                                                justifyContent: "space-evenly",
+                                                mb: 0.5,
+                                            }}
+                                        >
+                                            <Box
+                                                sx={{
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                }}
+                                            >
+                                                {auth.likes ? (
+                                                    auth.likes.some(
+                                                        (like) =>
+                                                            // eslint-disable-next-line
+                                                            like.clipId ==
+                                                            clip.id
+                                                    ) ? (
+                                                        <ThumbUp
+                                                            sx={{ mr: 1 }}
+                                                            color="primary"
+                                                        />
+                                                    ) : (
+                                                        <ThumbUpOutlinedIcon
+                                                            sx={{ mr: 1 }}
+                                                        />
+                                                    )
+                                                ) : (
+                                                    <ThumbUpOutlinedIcon
+                                                        sx={{ mr: 1 }}
+                                                    />
+                                                )}{" "}
+                                                {clip.likeAmount}
+                                            </Box>
+                                            <Box
+                                                sx={{
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                }}
+                                            >
+                                                <InsertCommentOutlinedIcon
+                                                    sx={{ mr: 1 }}
+                                                />{" "}
+                                                {clip.comments.length}
+                                            </Box>
                                         </Typography>
                                     </CardContent>
                                 </Link>
