@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import useGetFetch from "../Hooks/useGetFetch";
 import {
     Card,
@@ -10,19 +10,48 @@ import {
     TextField,
     Button,
     ButtonGroup,
+    Pagination,
 } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import { Undo } from "@mui/icons-material";
 
 function Games() {
-    const [url, setUrl] = useState(
-        "https://polish-clips.azurewebsites.net/api/games"
-    );
     const [gameName, setGameName] = useState("");
+    const [page, setPage] = useState(1);
+    const compRef = useRef();
+    const [url, setUrl] = useState(
+        `https://polish-clips.azurewebsites.net/api/games?PageNumber=${page}`
+    );
     const { data: games, isLoading, error } = useGetFetch(url);
 
+    const handlePages = (event, newPage) => {
+        setPage(newPage);
+        scrollToRef(compRef);
+    };
+
+    const scrollToRef = (ref) => {
+        ref.current.scroll({
+            top: 0,
+            behavior: "smooth",
+        });
+    };
+
+    useEffect(() => {
+        setUrl(
+            `https://polish-clips.azurewebsites.net/api/games?Name=${gameName}&PageNumber=${page}`
+        );
+        // eslint-disable-next-line
+    }, [page]);
+
     return (
-        <Box>
+        <Box
+            ref={compRef}
+            sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+            }}
+        >
             <Box
                 display="flex"
                 justifyContent="center"
@@ -31,8 +60,9 @@ function Games() {
                 component="form"
                 onSubmit={(e) => {
                     e.preventDefault();
+                    setPage(1);
                     setUrl(
-                        `https://polish-clips.azurewebsites.net/api/games?Name=${gameName}`
+                        `https://polish-clips.azurewebsites.net/api/games?Name=${gameName}&PageNumber=${page}`
                     );
                 }}
             >
@@ -66,6 +96,7 @@ function Games() {
                             setUrl(
                                 "https://polish-clips.azurewebsites.net/api/games"
                             );
+                            scrollToRef(compRef);
                             setGameName("");
                         }}
                     >
@@ -126,6 +157,14 @@ function Games() {
                         </Grid>
                     ))}
             </Grid>
+            {games.data && (
+                <Pagination
+                    count={Math.ceil(games.noOfElements / 12)}
+                    page={page}
+                    onChange={handlePages}
+                    sx={{ my: 1 }}
+                />
+            )}
         </Box>
     );
 }
