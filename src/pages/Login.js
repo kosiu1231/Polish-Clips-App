@@ -163,7 +163,7 @@ function Login() {
                             component={RouterLink}
                             to="/przypomnijhaslo"
                         >
-                            Przypomnij
+                            Zmień
                         </Link>
                     </Typography>
                 </Box>

@@ -81,7 +81,7 @@ function ForgotPassword() {
                 }}
             >
                 <Typography variant="h4" component="h3" sx={{ pt: 2 }}>
-                    Przypomnij hasło
+                    Zmień hasło
                 </Typography>
 
                 <Box
@@ -144,7 +144,7 @@ function ForgotPassword() {
                         variant="contained"
                         disabled={!validEmail ? true : false}
                     >
-                        Zweryfikuj
+                        Zmień
                     </Button>
                 </Box>
             </Card>
